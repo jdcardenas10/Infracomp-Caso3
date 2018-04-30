@@ -196,8 +196,15 @@ public class Worker implements Runnable {
             			String rta = ESTADO + SEPARADOR + OK;
                         write(writer, rta);
             		}
+            		else {
+            			System.out.println("No recibio ACT2");
+            			return;
+            		}
             	}
-            	
+            	else {
+            		System.out.println("No recibe ACT1");
+            		return;
+            	}
             System.out.println("Thread " + id + "Terminando\n");
 
         } catch (NullPointerException e) {
