@@ -10,7 +10,6 @@ import java.net.Socket;
 import java.net.UnknownHostException;
 
 import uniandes.gload.core.Task;
-import uniandes.gload.examples.clientserver.Client;
 
 
 public class Cliente extends Task{
@@ -36,7 +35,7 @@ public class Cliente extends Task{
 		Socket socket=null;
 		try {
 			
-			socket=new Socket("localhost",19999);
+			socket=new Socket("172.24.42.86",9999);
 			InputStream in=socket.getInputStream();
 			OutputStream out=socket.getOutputStream();
 			PrintWriter printer=new PrintWriter(out,true);
