@@ -124,14 +124,16 @@ public class Protocolo {
 			if("ESTADO:OK".equals(reader.readLine())){
 				//System.out.println("Se acabo: Victoria!");
 				acabo=System.currentTimeMillis();
-				System.out.println(acabo-inicio);
+				Long tiempo=acabo-inicio;
+				System.out.println("tiempo:"+tiempo);
 			}
 			}else{
 				printer.println("ACT1");
 				printer.println("ACT2");
 				if("ESTADO:OK".equals(reader.readLine())){
 					acabo=System.currentTimeMillis();
-					System.out.println(acabo-inicio);
+					Long tiempo=acabo-inicio;
+					System.out.println("tiempo:"+tiempo);
 					//System.out.println("Se acabo: Victoria!");
 				}
 			}

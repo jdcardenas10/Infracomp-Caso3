@@ -10,6 +10,7 @@ import java.net.Socket;
 import java.net.UnknownHostException;
 
 import uniandes.gload.core.Task;
+import uniandes.gload.examples.clientserver.Client;
 
 
 public class Cliente extends Task{
@@ -28,12 +29,14 @@ public class Cliente extends Task{
 
 	@Override
 	public void execute() {
+	
 		String simetrico = "BLOWFISH";
 		String hmac = "HMACSHA256";
 		
+		Socket socket=null;
 		try {
-			@SuppressWarnings("resource")
-			Socket socket=new Socket("172.24.42.86",19999);
+			
+			socket=new Socket("localhost",19999);
 			InputStream in=socket.getInputStream();
 			OutputStream out=socket.getOutputStream();
 			PrintWriter printer=new PrintWriter(out,true);
@@ -45,7 +48,6 @@ public class Cliente extends Task{
 			
 			protocolo.procesarCadena(in,out,printer,reader);
 	
-			
 		} catch (UnknownHostException e) {
 			e.printStackTrace();
 		} catch (IOException e) {

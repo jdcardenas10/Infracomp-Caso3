@@ -2,7 +2,6 @@ package servidorCliente;
 
 import uniandes.gload.core.LoadGenerator;
 import uniandes.gload.core.Task;
-import uniandes.gload.examples.clientserver.generator.Generator;
 
 public class Generador {
 	
@@ -10,7 +9,7 @@ public class Generador {
 	
 	public Generador(){
 		Task work=crearTask();
-		int nTasks=400;
+		int nTasks=4;
 		int brecha=20;
 		
 		loadG=new LoadGenerator("Con cifrado",nTasks,work,brecha);
@@ -22,6 +21,6 @@ public class Generador {
 	}
 	
 	public static void main(String[] args){
-		Generator gen=new Generator();
+		Generador gen=new Generador();
 	}
 }

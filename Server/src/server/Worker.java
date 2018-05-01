@@ -199,7 +199,8 @@ public class Worker implements Runnable {
 
             SecretKey llaveSimetrica = Seguridad.keyGenGenerator(algoritmos[1]);
             acabo=System.currentTimeMillis();
-            System.out.println(acabo-inicio);
+            Long tiempo=acabo-inicio;
+            System.out.println("tiempo:"+tiempo);
             byte[] cyph = Seguridad.aE(llaveSimetrica.getEncoded(),
                     certificadoCliente.getPublicKey(), algoritmos[2]);
 
