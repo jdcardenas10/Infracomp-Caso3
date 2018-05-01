@@ -64,6 +64,8 @@ public class Worker implements Runnable {
     private KeyPair keyPair;
     
     private X509Certificate certificadoCliente;
+	private Long inicio;
+	private Long acabo;
 
     public Worker(int pId, Socket pSocket) {
         id = pId;
@@ -196,6 +198,8 @@ public class Worker implements Runnable {
             // inicio de la comunicacion de las llaves
 
             SecretKey llaveSimetrica = Seguridad.keyGenGenerator(algoritmos[1]);
+            acabo=System.currentTimeMillis();
+            System.out.println(acabo-inicio);
             byte[] cyph = Seguridad.aE(llaveSimetrica.getEncoded(),
                     certificadoCliente.getPublicKey(), algoritmos[2]);
 
@@ -314,4 +318,8 @@ public class Worker implements Runnable {
             }
         }
     }
+
+	public void setInicio(Long inicio) {
+		this.inicio=inicio;
+	}
 }

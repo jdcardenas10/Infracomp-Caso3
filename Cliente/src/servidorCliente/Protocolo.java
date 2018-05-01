@@ -36,6 +36,9 @@ public class Protocolo {
 	private PublicKey publicKeySer;
 
 	private byte[] llaveSimetrica;
+	
+	Long inicio;
+	Long acabo;
 
 	//Constructor
 	public Protocolo() throws Exception {
@@ -60,7 +63,7 @@ public class Protocolo {
 			out.write(mybyte);
 			out.flush();
 			if(reader.readLine().equals("ESTADO:OK")){
-				System.out.println("Se envio el certificado");
+				//System.out.println("Se envio el certificado");
 			} else {
 				throw new ProtocolException("No se pudo enviar el certificado");
 			}
@@ -72,13 +75,13 @@ public class Protocolo {
 			try{
 			byte[] certificado = new byte[1024];
 			in.read(certificado);
-			System.out.println(certificado);
+			//System.out.println(certificado);
 			
 			X509Certificate certSer = (X509Certificate) CertificateFactory.getInstance("X.509")
 					.generateCertificate(new ByteArrayInputStream(certificado));
 			publicKeySer = certSer.getPublicKey();
             certSer.verify(publicKeySer);
-			System.out.println(certSer.toString());
+			//System.out.println(certSer.toString());
 			
 			printer.println("ESTADO:OK");
 			} catch (Exception e) {
@@ -94,13 +97,15 @@ public class Protocolo {
 			Cipher cipher = Cipher.getInstance(algAsimetrico);
 			cipher.init(Cipher.DECRYPT_MODE, certificado.getPrivada());
 			llaveSimetrica = cipher.doFinal(Hex.decode(div[1]));
-			System.out.println("Llave simétrica: " + Arrays.toString(llaveSimetrica));
+			//System.out.println("Llave simétrica: " + Arrays.toString(llaveSimetrica));
 			
 			Cipher cipher1 = Cipher.getInstance(algSimetrico);
 			SecretKeySpec keySpec = new SecretKeySpec(llaveSimetrica, algSimetrico);
 			cipher1.init(Cipher.ENCRYPT_MODE, keySpec);
 
 			String posicion="41 24.2028, 2 10.4418";
+			
+			inicio=System.currentTimeMillis();
 
 			printer.println("ACT1:"+Hex.toHexString(cipher1.doFinal((posicion).getBytes())));
 			
@@ -112,18 +117,22 @@ public class Protocolo {
 			mac.init(keySpec2);
 			byte[] parcial = mac.doFinal(posicion.getBytes());
 			String mandar= Hex.toHexString(cipher2.doFinal(parcial));
-			System.out.println("Yo enviando: " + mandar);
+			//System.out.println("Yo enviando: " + mandar);
 			
 			printer.println("ACT2:"+mandar);
 			
 			if("ESTADO:OK".equals(reader.readLine())){
-				System.out.println("Se acabo: Victoria!");
+				//System.out.println("Se acabo: Victoria!");
+				acabo=System.currentTimeMillis();
+				System.out.println(acabo-inicio);
 			}
 			}else{
 				printer.println("ACT1");
 				printer.println("ACT2");
 				if("ESTADO:OK".equals(reader.readLine())){
-					System.out.println("Se acabo: Victoria!");
+					acabo=System.currentTimeMillis();
+					System.out.println(acabo-inicio);
+					//System.out.println("Se acabo: Victoria!");
 				}
 			}
 	}

@@ -10,10 +10,10 @@ public class Generador {
 	
 	public Generador(){
 		Task work=crearTask();
-		int nTasks=100;
-		int brecha=50;
+		int nTasks=400;
+		int brecha=20;
 		
-		loadG=new LoadGenerator("Sinn cifrado",nTasks,work,brecha);
+		loadG=new LoadGenerator("Con cifrado",nTasks,work,brecha);
 		loadG.generate();
 	}
 

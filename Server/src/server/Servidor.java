@@ -35,10 +35,13 @@ public class Servidor {
 			for (;;) {
 				Socket sThread = null;
 
+				Long inicio=System.currentTimeMillis();
 				sThread = elSocket.accept();
 				sThread.setSoTimeout(TIME_OUT);
 				System.out.println("Thread " + num + " recibe a un cliente.");
-				executor.submit(new Worker(num, sThread));
+				Worker worker=new Worker(num, sThread);
+				worker.setInicio(inicio);
+				executor.submit(worker);
 				num++;
 			}
 		} catch (Exception e) {
