@@ -9,16 +9,30 @@ import java.io.PrintWriter;
 import java.net.Socket;
 import java.net.UnknownHostException;
 
+import uniandes.gload.core.Task;
 
-public class Cliente {
 
-	@SuppressWarnings("resource")
-	public static void main(String args[]){
+public class Cliente extends Task{
+
+	@Override
+	public void fail() {
+		// TODO Auto-generated method stub
 		
+	}
+
+	@Override
+	public void success() {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void execute() {
 		String simetrico = "BLOWFISH";
 		String hmac = "HMACSHA256";
 		
 		try {
+			@SuppressWarnings("resource")
 			Socket socket=new Socket("localhost",19999);
 			InputStream in=socket.getInputStream();
 			OutputStream out=socket.getOutputStream();
@@ -39,5 +53,6 @@ public class Cliente {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
+		
 	}
 }
