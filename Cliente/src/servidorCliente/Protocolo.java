@@ -2,6 +2,8 @@ package servidorCliente;
 
 import java.io.BufferedReader;
 import java.io.ByteArrayInputStream;
+import java.io.File;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
@@ -12,7 +14,6 @@ import java.security.PublicKey;
 import java.security.cert.CertificateException;
 import java.security.cert.CertificateFactory;
 import java.security.cert.X509Certificate;
-import java.util.Arrays;
 
 import javax.crypto.BadPaddingException;
 import javax.crypto.Cipher;
@@ -125,6 +126,10 @@ public class Protocolo {
 				//System.out.println("Se acabo: Victoria!");
 				acabo=System.currentTimeMillis();
 				Long tiempo=acabo-inicio;
+				File file = new File("./t2.txt"); 
+				FileWriter salida = new FileWriter(file, true);
+				salida.write("\n" + tiempo);
+				salida.close();
 				System.out.println("tiempo:"+tiempo);
 			}
 			}else{

@@ -35,7 +35,7 @@ public class Cliente extends Task{
 		Socket socket=null;
 		try {
 			
-			socket=new Socket("172.24.42.86",9999);
+			socket=new Socket("172.24.42.86",9090);
 			InputStream in=socket.getInputStream();
 			OutputStream out=socket.getOutputStream();
 			PrintWriter printer=new PrintWriter(out,true);

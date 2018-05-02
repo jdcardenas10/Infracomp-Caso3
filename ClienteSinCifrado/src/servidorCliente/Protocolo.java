@@ -2,6 +2,8 @@ package servidorCliente;
 
 import java.io.BufferedReader;
 import java.io.ByteArrayInputStream;
+import java.io.File;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
@@ -28,6 +30,10 @@ public class Protocolo {
 	private String algHmac;
 
 	private PublicKey publicKeySer;
+
+	private long inicio;
+
+	private long acabo;
 
 	//Constructor
 	public Protocolo() throws Exception {
@@ -80,10 +86,17 @@ public class Protocolo {
 
 			if("INICIO".equals(reader.readLine())){
 			
+				inicio=System.currentTimeMillis();
 				printer.println("ACT1");
 				printer.println("ACT2");
 				if("ESTADO:OK".equals(reader.readLine())){
-					System.out.println("Se acabo: Victoria!");
+					acabo=System.currentTimeMillis();
+					Long tiempo=acabo-inicio;
+					File file = new File("./t2.txt"); 
+					FileWriter salida = new FileWriter(file, true);
+					salida.write("\n" + tiempo);
+					salida.close();
+					System.out.println("tiempo:"+tiempo);
 				}
 			}
 	}

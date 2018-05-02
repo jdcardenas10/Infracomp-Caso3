@@ -33,7 +33,7 @@ public class Cliente extends Task{
 		
 		try {
 			@SuppressWarnings("resource")
-			Socket socket=new Socket("localhost",19999);
+			Socket socket=new Socket("172.24.42.86",9090);
 			InputStream in=socket.getInputStream();
 			OutputStream out=socket.getOutputStream();
 			PrintWriter printer=new PrintWriter(out,true);
