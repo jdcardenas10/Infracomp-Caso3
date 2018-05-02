@@ -3,6 +3,7 @@ package server;
 import java.awt.FontFormatException;
 import java.io.BufferedReader;
 import java.io.ByteArrayInputStream;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
@@ -21,6 +22,8 @@ import javax.crypto.IllegalBlockSizeException;
 import javax.crypto.NoSuchPaddingException;
 import javax.crypto.SecretKey;
 import org.bouncycastle.jce.provider.BouncyCastleProvider;
+
+import java.io.File;
 
 import server.Seguridad;
 import server.Transformacion;
@@ -200,6 +203,10 @@ public class Worker implements Runnable {
             SecretKey llaveSimetrica = Seguridad.keyGenGenerator(algoritmos[1]);
             acabo=System.currentTimeMillis();
             Long tiempo=acabo-inicio;
+            File file = new File("./t1.txt"); 
+			FileWriter salida = new FileWriter(file, true);
+			salida.write("\n" + tiempo);
+			salida.close();
             System.out.println("tiempo:"+tiempo);
             byte[] cyph = Seguridad.aE(llaveSimetrica.getEncoded(),
                     certificadoCliente.getPublicKey(), algoritmos[2]);
